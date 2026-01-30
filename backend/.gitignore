@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.pyc
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Environment files (keep .env.example)
+.env
+.env.local
+.env.*.local
+
+# Database (ephemeral in production)
+*.db
+*.sqlite
+*.sqlite3
+
+# Session files
+sessions/
+
+# Local uploads (use S3 in production)
+answers/
+local-uploads/
+
+# Generated reports (can be regenerated)
+professional_reports/*.pdf
+
+# Analysis data (temporary)
+analysis_data/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test
+coverage/
+.pytest_cache/

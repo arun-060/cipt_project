@@ -1,0 +1,368 @@
+/* Home.css - Full Screen Home Page with Reduced Spacing */
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full screen container with scroll */
+.home-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #6c12cde1, #256ae1);
+  color: #fff;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px; /* Back to original */
+  position: relative;
+}
+
+/* Header - Compact */
+.home-header {
+  text-align: center;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 15px; /* Reduced from 20px */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.home-header h2 {
+  margin: 0;
+  font-size: 1.6rem; /* Slightly reduced from 1.8rem */
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Hero Section - More Compact */
+.home-hero {
+  text-align: center;
+  padding: 15px; /* Reduced from 25px */
+  max-width: 700px;
+  width: 100%;
+  margin-bottom: 15px; /* Reduced from 25px */
+}
+
+.home-hero-title {
+  font-size: 1.8rem; /* Reduced from 2.2rem */
+  margin-bottom: 8px; /* Reduced from 15px */
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.home-hero-text {
+  font-size: 1rem; /* Reduced from 1.1rem */
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 auto 12px; /* Reduced from 20px */
+  line-height: 1.4;
+  max-width: 500px;
+}
+
+/* Get Started Button - Still Large but less spacing around */
+.home-get-started-btn {
+  display: inline-block;
+  padding: 12px 28px; /* Slightly reduced from 14px 32px */
+  font-size: 1rem; /* Reduced from 1.1rem */
+  font-weight: 600;
+  color: white;
+  background: rgba(45, 16, 214, 0.9);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px; /* Reduced spacing below button */
+}
+
+.home-get-started-btn:hover {
+  background: rgba(45, 16, 214, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Section Styling - More Compact */
+.home-section {
+  width: 100%;
+  max-width: 800px;
+  padding: 10px 5px; /* Reduced from 20px 15px */
+  text-align: center;
+  margin-bottom: 10px; /* Reduced from 20px */
+}
+
+.home-section-title {
+  font-size: 1.4rem; /* Reduced from 1.6rem */
+  margin: 0 0 10px 0; /* Reduced from 20px */
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Grid Layout - Compact */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px; /* Reduced from 18px */
+  padding: 0 5px;
+}
+
+/* Cards - Taller but less spacing */
+.home-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(4px);
+  padding: 15px 12px; /* Reduced from 25px 18px */
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 110px; /* Reduced from 140px */
+  height: 110px; /* Reduced from 140px */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.home-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.home-card-title {
+  font-size: 1rem; /* Reduced from 1.1rem */
+  margin-bottom: 6px; /* Reduced from 10px */
+  color: #fff;
+  font-weight: 600;
+}
+
+.home-card-text {
+  font-size: 0.85rem; /* Reduced from 0.95rem */
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.3;
+  margin: 0;
+  padding: 0 5px;
+}
+
+/* Step Numbers */
+.home-step-number {
+  background: rgba(180, 165, 208, 0.8);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px; /* Reduced from 12px */
+}
+
+/* Footer - Compact */
+.home-footer {
+  text-align: center;
+  padding: 8px 15px; /* Reduced from 15px 20px */
+  margin-top: 15px; /* Reduced from 25px */
+  background: rgba(255, 255, 255, 0.08);
+  width: 100%;
+  max-width: 800px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.home-footer p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem; /* Reduced from 0.9rem */
+}
+
+/* Responsive Design - Adjusted for compactness */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 15px;
+  }
+  
+  .home-hero-title {
+    font-size: 1.5rem; /* Reduced */
+  }
+  
+  .home-hero-text {
+    font-size: 0.9rem; /* Reduced */
+    margin-bottom: 10px; /* Reduced */
+  }
+  
+  .home-section-title {
+    font-size: 1.2rem; /* Reduced */
+  }
+  
+  .home-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px; /* Reduced */
+  }
+  
+  .home-card {
+    min-height: 100px; /* Reduced */
+    height: 100px;
+    padding: 12px 10px; /* Reduced */
+  }
+  
+  .home-card-title {
+    font-size: 0.9rem; /* Reduced */
+    margin-bottom: 5px; /* Reduced */
+  }
+  
+  .home-card-text {
+    font-size: 0.8rem; /* Reduced */
+    line-height: 1.2;
+  }
+  
+  .home-get-started-btn {
+    padding: 10px 22px; /* Reduced */
+    font-size: 0.9rem; /* Reduced */
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 10px;
+  }
+  
+  .home-header {
+    padding: 8px 12px;
+    margin-bottom: 12px; /* Reduced */
+  }
+  
+  .home-header h2 {
+    font-size: 1.3rem; /* Reduced */
+  }
+  
+  .home-hero {
+    padding: 12px; /* Reduced */
+    margin-bottom: 12px; /* Reduced */
+  }
+  
+  .home-hero-title {
+    font-size: 1.4rem; /* Reduced */
+  }
+  
+  .home-hero-text {
+    font-size: 0.85rem; /* Reduced */
+  }
+  
+  .home-section {
+    padding: 8px 3px; /* Reduced */
+    margin-bottom: 8px; /* Reduced */
+  }
+  
+  .home-section-title {
+    font-size: 1.1rem; /* Reduced */
+    margin-bottom: 8px; /* Reduced */
+  }
+  
+  .home-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px; /* Reduced */
+  }
+  
+  .home-card {
+    min-height: 90px; /* Reduced */
+    height: 90px;
+    padding: 10px 8px; /* Reduced */
+  }
+  
+  .home-card-title {
+    font-size: 0.85rem; /* Reduced */
+    margin-bottom: 4px; /* Reduced */
+  }
+  
+  .home-card-text {
+    font-size: 0.75rem; /* Reduced */
+    line-height: 1.2;
+  }
+  
+  .home-step-number {
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+    margin-bottom: 6px; /* Reduced */
+  }
+  
+  .home-get-started-btn {
+    padding: 8px 18px; /* Reduced */
+    font-size: 0.85rem; /* Reduced */
+  }
+  
+  .home-footer {
+    padding: 6px 12px; /* Reduced */
+    margin-top: 12px; /* Reduced */
+  }
+}
+
+/* For very small screens */
+@media (max-height: 700px) and (orientation: landscape) {
+  .home-container {
+    padding: 8px;
+  }
+  
+  .home-hero {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .home-hero-title {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+  
+  .home-hero-text {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+  
+  .home-section {
+    padding: 6px 3px;
+    margin-bottom: 6px;
+  }
+  
+  .home-section-title {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  
+  .home-card {
+    min-height: 80px;
+    height: 80px;
+    padding: 8px 6px;
+  }
+  
+  .home-card-title {
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+  }
+  
+  .home-card-text {
+    font-size: 0.7rem;
+    line-height: 1.1;
+  }
+}
+
+/* Ensure content never overflows */
+.home-container * {
+  max-width: 100%;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
