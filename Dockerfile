@@ -1,5 +1,5 @@
-# Use Python 3.9 as base image (required for ML dependencies)
-FROM python:3.9-slim-bookworm
+# Use Python 3.10 as base image (required for newer ML dependencies)
+FROM python:3.10-slim-bookworm
 
 # Set environment variables
 ENV NODE_ENV=production
