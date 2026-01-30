@@ -148,7 +148,6 @@ const VideoPage = () => {
           const patterns = [
             `${setNumber}_${q}${ext}`,
             `${setNumber}_${q}${ext.toLowerCase()}`,
-            `${setNumber}_${q}${ext.toUpperCase()}`,
             `question_${setNumber}_${q}${ext}`,
             `q${setNumber}_${q}${ext}`,
           ];
@@ -176,177 +175,152 @@ const VideoPage = () => {
             break;
           }
         }
-
-        if (existingVideos.length === 0) {
-          console.log("🔄 Trying generic patterns...");
-
-          for (let q = 1; q <= 30; q++) {
-            for (const ext of extensions) {
-              const patterns = [
-                `${q}${ext}`,
-                `question_${q}${ext}`,
-                `q${q}${ext}`,
-                `video${q}${ext}`,
-              ];
-
-              for (const pattern of patterns) {
-                const testUrl = `${API_BASE_URL}/videos/${domain}/${pattern}`;
-                try {
-                  const response = await fetch(testUrl, { method: 'HEAD' });
-                  if (response.ok) {
-                    existingVideos.push(`/videos/${domain}/${pattern}`);
-                    console.log(`✅ Found: ${pattern}`);
-                    break;
-                  }
-                } catch (err) {
-                  // Skip errors
-                }
-              }
-            }
-          }
-
-          try {
-            const apiUrl = `${API_BASE_URL}/get-videos?domain=${encodeURIComponent(domain)}`;
-            console.log("🌐 Trying API:", apiUrl);
-
-            const response = await fetch(apiUrl, {
-              method: 'GET',
-              credentials: 'include',
-              headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              console.log("✅ API response received");
-
-              let apiVideos = [];
-              if (Array.isArray(data)) {
-                apiVideos = data;
-              } else if (data && typeof data === 'object') {
-                if (data.videos && Array.isArray(data.videos)) {
-                  apiVideos = data.videos;
-                } else if (data.files && Array.isArray(data.files)) {
-                  apiVideos = data.files;
-                } else if (data.data && Array.isArray(data.data)) {
-                  apiVideos = data.data;
-                } else if (data.message && Array.isArray(data.message)) {
-                  apiVideos = data.message;
-                }
-              }
-
-              if (apiVideos.length > 0) {
-                console.log(`✅ Found ${apiVideos.length} videos via API`);
-                apiVideos.forEach(video => {
-                  const videoStr = String(video).trim();
-                  if (!existingVideos.includes(videoStr)) {
-                    existingVideos.push(videoStr);
-                  }
-                });
-              }
-            }
-          } catch (apiError) {
-            console.log("❌ API call failed:", apiError.message);
-          }
-
-          if (existingVideos.length > 0) {
-            console.log(`✅ Total found: ${existingVideos.length} videos`);
-            return existingVideos;
-          }
-
-          return [];
-        };
-
-        const fetchVideos = async () => {
-          try {
-            setIsLoading(true);
-            setError("");
-
-            const setNumber = getSetNumberFromDomain(domain);
-            console.log(`🚀 Fetching videos for ${domain} (Set ${setNumber})`);
-
-            const discoveredVideos = await discoverVideosForDomain(domain, setNumber);
-
-            if (discoveredVideos.length > 0) {
-              const success = processAndSetVideos(discoveredVideos, domain, setNumber);
-              if (success) {
-                setIsLoading(false);
-                return;
-              }
-            }
-
-            console.log("🔄 No videos found, creating set-based fallback...");
-
-            const fallbackVideos = [];
-            const subjectName = domain.replace(/^\d+_/, '');
-
-            for (let q = 1; q <= 15; q++) {
-              fallbackVideos.push(`/videos/${domain}/${setNumber}_${q}.mp4`);
-              fallbackVideos.push(`/videos/${domain}/${setNumber}_${q}.mov`);
-              fallbackVideos.push(`/videos/${domain}/${setNumber}_${q}.MOV`);
-            }
-
-            console.log(`🔄 Created ${fallbackVideos.length} fallback videos for ${subjectName} (Set ${setNumber})`);
-
-            setVideos(fallbackVideos);
-            setError(`No videos found. Using fallback patterns for ${subjectName}.`);
-
-          } catch (err) {
-            console.error("❌ Error:", err);
-            setError(`Error: ${err.message}`);
-
-            const setNumber = getSetNumberFromDomain(domain);
-            const fallbackVideos = [];
-            for (let q = 1; q <= 10; q++) {
-              fallbackVideos.push(`/videos/${domain}/${setNumber}_${q}.mp4`);
-            }
-            setVideos(fallbackVideos);
-
-          } finally {
-            setIsLoading(false);
-          }
-        };
-
-        fetchVideos();
-
-        return () => {
-          if (timerRef.current) {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
-          }
-          const stream = streamRef.current;
-          if (stream) {
-            stream.getTracks().forEach(track => track.stop());
-          }
-        };
-      }, []);
-
-  useEffect(() => {
-    if (videos.length > 0 && timeLeft > 0) {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
       }
 
-      timerRef.current = setInterval(() => {
-        setTimeLeft(prev => {
-          if (prev <= 1) {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
-            alert("Time's up!");
-            window.location.href = "/final-report";
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
+      if (existingVideos.length === 0) {
+        console.log("🔄 Trying generic patterns...");
 
-      return () => {
-        if (timerRef.current) {
-          clearInterval(timerRef.current);
-          timerRef.current = null;
+        for (let q = 1; q <= 30; q++) {
+          for (const ext of extensions) {
+            const patterns = [
+              `${q}${ext}`,
+              `question_${q}${ext}`,
+              `q${q}${ext}`,
+              `video${q}${ext}`,
+            ];
+
+            for (const pattern of patterns) {
+              const testUrl = `${API_BASE_URL}/videos/${domain}/${pattern}`;
+              try {
+                const response = await fetch(testUrl, { method: 'HEAD' });
+                if (response.ok) {
+                  existingVideos.push(`/videos/${domain}/${pattern}`);
+                  console.log(`✅ Found: ${pattern}`);
+                  break;
+                }
+              } catch (err) {
+                // Skip errors
+              }
+            }
+
+            if (existingVideos.length > 0) break;
+          }
         }
-      };
-    }
-  }, [videos, timeLeft]);
+      }
+
+      try {
+        const apiUrl = `${API_BASE_URL}/get-videos?domain=${encodeURIComponent(domain)}`;
+        console.log("🌐 Trying API:", apiUrl);
+
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          credentials: 'include',
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("✅ API response received");
+
+          let apiVideos = [];
+          if (Array.isArray(data)) {
+            apiVideos = data;
+          } else if (data && typeof data === 'object') {
+            if (data.videos && Array.isArray(data.videos)) {
+              apiVideos = data.videos;
+            } else if (data.files && Array.isArray(data.files)) {
+              apiVideos = data.files;
+            } else if (data.data && Array.isArray(data.data)) {
+              apiVideos = data.data;
+            } else if (data.message && Array.isArray(data.message)) {
+              apiVideos = data.message;
+            }
+          }
+
+          if (apiVideos.length > 0) {
+            console.log(`✅ Found ${apiVideos.length} videos via API`);
+            apiVideos.forEach(video => {
+              const videoStr = String(video).trim();
+              if (!existingVideos.includes(videoStr)) {
+                existingVideos.push(videoStr);
+              }
+            });
+          }
+        }
+      } catch (apiError) {
+        console.log("❌ API call failed:", apiError.message);
+      }
+
+      if (existingVideos.length > 0) {
+        console.log(`✅ Total found: ${existingVideos.length} videos`);
+        return existingVideos;
+      }
+
+      return [];
+    };
+
+    const fetchVideos = async () => {
+      try {
+        setIsLoading(true);
+        setError("");
+
+        const setNumber = getSetNumberFromDomain(domain);
+        console.log(`🚀 Fetching videos for ${domain} (Set ${setNumber})`);
+
+        const discoveredVideos = await discoverVideosForDomain(domain, setNumber);
+
+        if (discoveredVideos.length > 0) {
+          const success = processAndSetVideos(discoveredVideos, domain, setNumber);
+          if (success) {
+            setIsLoading(false);
+            return;
+          }
+        }
+
+        console.log("🔄 No videos found, creating set-based fallback...");
+
+        const fallbackVideos = [];
+        const subjectName = domain.replace(/^\d+_/, '');
+
+        for (let q = 1; q <= 15; q++) {
+          fallbackVideos.push(`/videos/${domain}/${setNumber}_${q}.mp4`);
+          fallbackVideos.push(`/videos/${domain}/${setNumber}_${q}.mov`);
+          fallbackVideos.push(`/videos/${domain}/${setNumber}_${q}.MOV`);
+        }
+
+        console.log(`🔄 Created ${fallbackVideos.length} fallback videos for ${subjectName} (Set ${setNumber})`);
+
+        setVideos(fallbackVideos);
+        setError(`No videos found. Using fallback patterns for ${subjectName}.`);
+
+      } catch (err) {
+        console.error("❌ Error:", err);
+        setError(`Error: ${err.message}`);
+
+        const setNumber = getSetNumberFromDomain(domain);
+        const fallbackVideos = [];
+        for (let q = 1; q <= 10; q++) {
+          fallbackVideos.push(`/videos/${domain}/${setNumber}_${q}.mp4`);
+        }
+        setVideos(fallbackVideos);
+
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVideos();
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (videos.length === 0 || !questionVideoRef.current) return;
@@ -417,6 +391,33 @@ const VideoPage = () => {
     }, 100);
 
   }, [videos, questionIndex, isMuted]);
+
+  useEffect(() => {
+    if (videos.length > 0 && timeLeft > 0) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+
+      timerRef.current = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+            alert("Time's up!");
+            window.location.href = "/final-report";
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => {
+        if (timerRef.current) {
+          clearInterval(timerRef.current);
+        }
+      };
+    }
+  }, [videos, timeLeft]);
 
   const startRecording = async () => {
     try {
