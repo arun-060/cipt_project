@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import { API_BASE_URL } from "../config";
 
 export default function AuthPage() {
+  const navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
 
   // --- LOGIN STATE ---
@@ -35,7 +37,9 @@ export default function AuthPage() {
         throw new Error(`HTTP error! status: ${res.status}, message: ${text}`);
       }
       const data = await res.json();
-      if (data.success) window.location.href = "/skills";
+      if (data.success) {
+        navigate("/skills");
+      }
       else alert("Login failed. Please check your credentials.");
     } catch (err) {
       console.error("Login fetch failed:", err);
